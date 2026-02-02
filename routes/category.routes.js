@@ -1,5 +1,5 @@
-import { Router } from 'express';
-import {
+const { Router } = require('express');
+const {
   getCategories,
   getCategory,
   createCategory,
@@ -7,7 +7,7 @@ import {
   deleteCategory,
   getAddCategoryForm,
   getEditCategoryForm
-} from '../controllers/category.controller.js';
+} = require('../controllers/category.controller.js');
 
 const router = Router();
 
@@ -20,4 +20,4 @@ router.post('/:id/update', updateCategory);
 router.post('/:id/delete', deleteCategory);
 
 
-export default router;
+module.exports = router;

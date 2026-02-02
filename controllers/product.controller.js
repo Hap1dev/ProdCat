@@ -1,8 +1,6 @@
-import { PrismaClient } from '@prisma/client';
+const prisma = require('../prisma/client.js');
 
-const prisma = new PrismaClient();
-
-export const getProducts = async (req, res) => {
+const getProducts = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const pageSize = 10;
@@ -29,7 +27,7 @@ export const getProducts = async (req, res) => {
   }
 };
 
-export const getAddProductForm = async (req, res) => {
+const getAddProductForm = async (req, res) => {
   try {
     const categories = await prisma.category.findMany();
     res.render('products/add', { categories });
@@ -38,7 +36,7 @@ export const getAddProductForm = async (req, res) => {
   }
 };
 
-export const getEditProductForm = async (req, res) => {
+const getEditProductForm = async (req, res) => {
   try {
     const { id } = req.params;
     const product = await prisma.product.findUnique({
@@ -51,7 +49,7 @@ export const getEditProductForm = async (req, res) => {
   }
 };
 
-export const createProduct = async (req, res) => {
+const createProduct = async (req, res) => {
   try {
     const { name, categoryId } = req.body;
     await prisma.product.create({
@@ -66,7 +64,7 @@ export const createProduct = async (req, res) => {
   }
 };
 
-export const updateProduct = async (req, res) => {
+const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
     const { name, categoryId } = req.body;
@@ -83,7 +81,7 @@ export const updateProduct = async (req, res) => {
   }
 };
 
-export const deleteProduct = async (req, res) => {
+const deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;
     await prisma.product.delete({
@@ -93,4 +91,13 @@ export const deleteProduct = async (req, res) => {
   } catch (error) {
     res.status(500).send(error.message);
   }
+};
+
+module.exports = {
+    getProducts,
+    getAddProductForm,
+    getEditProductForm,
+    createProduct,
+    updateProduct,
+    deleteProduct,
 };

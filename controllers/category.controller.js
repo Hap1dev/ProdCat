@@ -1,8 +1,6 @@
-import { PrismaClient } from '@prisma/client';
+const prisma = require('../prisma/client.js');
 
-const prisma = new PrismaClient();
-
-export const getCategories = async (req, res) => {
+const getCategories = async (req, res) => {
   try {
     const categories = await prisma.category.findMany();
     res.render('categories/index', { categories });
@@ -11,11 +9,11 @@ export const getCategories = async (req, res) => {
   }
 };
 
-export const getAddCategoryForm = (req, res) => {
+const getAddCategoryForm = (req, res) => {
   res.render('categories/add');
 };
 
-export const getCategory = async (req, res) => {
+const getCategory = async (req, res) => {
   try {
     const { id } = req.params;
     const category = await prisma.category.findUnique({
@@ -27,7 +25,7 @@ export const getCategory = async (req, res) => {
   }
 };
 
-export const getEditCategoryForm = async (req, res) => {
+const getEditCategoryForm = async (req, res) => {
     try {
       const { id } = req.params;
       const category = await prisma.category.findUnique({
@@ -39,7 +37,7 @@ export const getEditCategoryForm = async (req, res) => {
     }
   };
 
-export const createCategory = async (req, res) => {
+const createCategory = async (req, res) => {
   try {
     const { name } = req.body;
     await prisma.category.create({
@@ -51,7 +49,7 @@ export const createCategory = async (req, res) => {
   }
 };
 
-export const updateCategory = async (req, res) => {
+const updateCategory = async (req, res) => {
   try {
     const { id } = req.params;
     const { name } = req.body;
@@ -65,7 +63,7 @@ export const updateCategory = async (req, res) => {
   }
 };
 
-export const deleteCategory = async (req, res) => {
+const deleteCategory = async (req, res) => {
   try {
     const { id } = req.params;
     await prisma.category.delete({
@@ -76,3 +74,13 @@ export const deleteCategory = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+
+module.exports = {
+    getCategories,
+    getAddCategoryForm,
+    getCategory,
+    getEditCategoryForm,
+    createCategory,
+    updateCategory,
+    deleteCategory
+}

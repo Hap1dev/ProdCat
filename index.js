@@ -1,7 +1,7 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import categoryRoutes from './routes/category.routes.js';
-import productRoutes from './routes/product.routes.js';
+const express = require('express');
+const dotenv = require('dotenv');
+const categoryRoutes = require('./routes/category.routes.js');
+const productRoutes = require('./routes/product.routes.js');
 
 dotenv.config();
 
