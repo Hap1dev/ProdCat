@@ -17,6 +17,7 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Category</th>
+                    <th>Category ID</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -26,6 +27,7 @@
                         <td><%= product.id %></td>
                         <td><%= product.name %></td>
                         <td><%= product.category.name %></td>
+                        <td><%= product.categoryId %></td>
                         <td>
                             <a href="/products/edit/<%= product.id %>" class="btn btn-sm btn-warning">Edit</a>
                             <form action="/products/<%= product.id %>/delete" method="POST" class="d-inline">
