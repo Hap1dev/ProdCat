@@ -1,6 +1,6 @@
-const prisma = require('../prisma/client.js');
+import prisma from '../prisma/client.js';
 
-const getCategories = async (req, res) => {
+export const getCategories = async (req, res) => {
   try {
     const categories = await prisma.category.findMany();
     res.render('categories/index', { categories });
@@ -9,11 +9,11 @@ const getCategories = async (req, res) => {
   }
 };
 
-const getAddCategoryForm = (req, res) => {
+export const getAddCategoryForm = (req, res) => {
   res.render('categories/add');
 };
 
-const getCategory = async (req, res) => {
+export const getCategory = async (req, res) => {
   try {
     const { id } = req.params;
     const category = await prisma.category.findUnique({
@@ -25,7 +25,7 @@ const getCategory = async (req, res) => {
   }
 };
 
-const getEditCategoryForm = async (req, res) => {
+export const getEditCategoryForm = async (req, res) => {
     try {
       const { id } = req.params;
       const category = await prisma.category.findUnique({
@@ -37,7 +37,7 @@ const getEditCategoryForm = async (req, res) => {
     }
   };
 
-const createCategory = async (req, res) => {
+export const createCategory = async (req, res) => {
   try {
     const { name } = req.body;
     await prisma.category.create({
@@ -49,7 +49,7 @@ const createCategory = async (req, res) => {
   }
 };
 
-const updateCategory = async (req, res) => {
+export const updateCategory = async (req, res) => {
   try {
     const { id } = req.params;
     const { name } = req.body;
@@ -63,7 +63,7 @@ const updateCategory = async (req, res) => {
   }
 };
 
-const deleteCategory = async (req, res) => {
+export const deleteCategory = async (req, res) => {
   try {
     const { id } = req.params;
     await prisma.category.delete({
@@ -74,13 +74,3 @@ const deleteCategory = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
-
-module.exports = {
-    getCategories,
-    getAddCategoryForm,
-    getCategory,
-    getEditCategoryForm,
-    createCategory,
-    updateCategory,
-    deleteCategory
-}

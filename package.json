@@ -11,6 +11,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "type": "module",
   "dependencies": {
     "@prisma/client": "^5.15.0",
     "dotenv": "^16.4.5",
