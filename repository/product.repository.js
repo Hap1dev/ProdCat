@@ -1,17 +1,42 @@
 import prisma from '../prisma/client.js';
 
-export const findMany = (skip, take) => {
+export const findMany = (skip, take, search, categoryId) => {
+    const where = {};
+    if (search) {
+        where.name = {
+            contains: search,
+            mode: 'insensitive',
+        };
+    }
+    if (categoryId) {
+        where.categoryId = parseInt(categoryId);
+    }
+
     return prisma.product.findMany({
         skip,
         take,
+        where,
         include: {
             category: true,
         },
     });
 };
 
-export const count = () => {
-    return prisma.product.count();
+export const count = (search, categoryId) => {
+    const where = {};
+    if (search) {
+        where.name = {
+            contains: search,
+            mode: 'insensitive',
+        };
+    }
+    if (categoryId) {
+        where.categoryId = parseInt(categoryId);
+    }
+
+    return prisma.product.count({
+        where,
+    });
 }
 
 export const findUnique = (id) => {

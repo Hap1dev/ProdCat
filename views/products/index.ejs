@@ -11,6 +11,29 @@
     <div class="container">
         <h1>Products</h1>
         <a href="/products/add" class="btn btn-primary mb-3">Add Product</a>
+
+        <form action="/products" method="GET" class="mb-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" name="search" class="form-control" placeholder="Search by name" value="<%= search || '' %>">
+                </div>
+                <div class="col-md-4">
+                    <select name="categoryId" class="form-select">
+                        <option value="">All Categories</option>
+                        <% categories.forEach(category => { %>
+                            <option value="<%= category.id %>" <%= categoryId == category.id ? 'selected' : '' %>>
+                                <%= category.name %>
+                            </option>
+                        <% }); %>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                    <a href="/products" class="btn btn-secondary">Clear</a>
+                </div>
+            </div>
+        </form>
+
         <table class="table">
             <thead>
                 <tr>
@@ -43,7 +66,7 @@
             <ul class="pagination">
                 <% for(let i = 1; i <= totalPages; i++) { %>
                     <li class="page-item <%= currentPage == i ? 'active' : '' %>">
-                        <a class="page-link" href="/products?page=<%= i %>"><%= i %></a>
+                        <a class="page-link" href="/products?page=<%= i %>&search=<%= search || '' %>&categoryId=<%= categoryId || '' %>"><%= i %></a>
                     </li>
                 <% } %>
             </ul>

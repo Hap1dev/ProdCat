@@ -4,13 +4,18 @@ import * as categoryRepository from '../repository/category.repository.js';
 export const getProducts = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
-    const products = await productService.getProducts(page);
-    const totalPages = await productService.getTotalPages();
+    const { search, categoryId } = req.query;
+    const products = await productService.getProducts(page, search, categoryId);
+    const totalPages = await productService.getTotalPages(search, categoryId);
+    const categories = await categoryRepository.findMany();
 
     res.render('products/index', {
       products,
       currentPage: page,
       totalPages,
+      categories,
+      search,
+      categoryId,
     });
   } catch (error) {
     res.status(500).send(error.message);

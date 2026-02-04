@@ -1,15 +1,15 @@
 import * as productRepository from '../repository/product.repository.js';
 import * as categoryRepository from '../repository/category.repository.js';
 
-export const getProducts = (page) => {
+export const getProducts = (page, search, categoryId) => {
     const pageSize = 10;
     const skip = (page - 1) * pageSize;
-    return productRepository.findMany(skip, pageSize);
+    return productRepository.findMany(skip, pageSize, search, categoryId);
 };
 
-export const getTotalPages = async () => {
+export const getTotalPages = async (search, categoryId) => {
     const pageSize = 10;
-    const totalProducts = await productRepository.count();
+    const totalProducts = await productRepository.count(search, categoryId);
     return Math.ceil(totalProducts / pageSize);
 }
 
