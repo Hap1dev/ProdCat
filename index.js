@@ -16,7 +16,7 @@ app.use('/categories', categoryRoutes);
 app.use('/products', productRoutes);
 
 app.get('/', (req, res) => {
-  res.redirect('/products');
+  res.render('index');
 });
 
 app.listen(port, () => {
