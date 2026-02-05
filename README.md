@@ -121,6 +121,39 @@ The project follows a standard MVC-like architecture:
 
 The application will be available at `http://localhost:3000`.
 
+## Getting Started with Docker
+
+To run the application using Docker and Docker Compose:
+
+1.  **Ensure Docker is running:** Make sure you have Docker Desktop or Docker Engine installed and running on your system.
+
+2.  **Build and run the containers:**
+
+    Navigate to the project root directory where `docker-compose.yml` is located and run:
+
+    ```bash
+    docker-compose up --build
+    ```
+
+    This command will:
+    -   Build the Node.js application image.
+    -   Create and start the PostgreSQL database container.
+    -   Create and start the Node.js application container.
+    -   Automatically run Prisma migrations and start the Node.js server within the application container.
+
+3.  **Access the application:**
+
+    The application will be available at `http://localhost:3000`.
+
+4.  **Stop the containers:**
+
+    To stop and remove the containers, press `Ctrl+C` in the terminal where `docker-compose up` is running.
+    To stop and remove containers, networks, and volumes (database data), run:
+
+    ```bash
+    docker-compose down -v
+    ```
+
 ## API Endpoints
 
 ### Categories

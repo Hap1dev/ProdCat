@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "postgresql://user:password@db:5432/prodcat_db?schema=public"
+      PORT: 3000
+    depends_on:
+      - db
+    command: >
+      sh -c "npx prisma migrate deploy && npm start"
+    
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: prodcat_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
